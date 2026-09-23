@@ -1,4 +1,4 @@
-import 'package:bookly_app/features/details_view_screen/presentation/view/details_view_screen.dart';
+import 'package:bookly_app/features/home_screen/presentation/view/widgets/details_view_screen.dart';
 import 'package:bookly_app/features/home_screen/presentation/view/home_screen.dart';
 import 'package:bookly_app/features/splash_screen/presentation/views/splash_screen.dart';
 import 'package:go_router/go_router.dart';

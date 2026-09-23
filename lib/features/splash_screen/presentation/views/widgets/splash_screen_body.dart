@@ -1,10 +1,9 @@
-import 'package:bookly_app/core/constants/constants.dart';
 import 'package:bookly_app/core/utils/assets_images.dart';
 import 'package:bookly_app/core/utils/colors.dart';
 import 'package:bookly_app/core/utils/routers.dart';
-import 'package:bookly_app/features/home_screen/presentation/view/home_screen.dart';
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
 import 'package:go_router/go_router.dart';
 
 class SplashScreenBody extends StatefulWidget {
