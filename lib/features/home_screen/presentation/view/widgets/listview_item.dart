@@ -5,10 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class ListViewItem extends StatelessWidget {
-  const ListViewItem({super.key, required this.width, required this.height});
-
   final double width;
   final double height;
+  const ListViewItem({super.key, required this.width, required this.height});
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +16,8 @@ class ListViewItem extends StatelessWidget {
         GoRouter.of(context).push(Routers.detailsScreen);
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        margin: const EdgeInsets.all(5),
+        padding: EdgeInsets.symmetric(horizontal: width * 10),
+        margin: EdgeInsets.all(0.1 * width),
         width: 0.38 * width,
         height: 0.3 * height,
         decoration: BoxDecoration(
