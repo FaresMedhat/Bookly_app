@@ -4,10 +4,14 @@ import 'package:bookly_app/core/utils/routers.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class ListViewItem extends StatelessWidget {
+class CustomBookingImageWidget extends StatelessWidget {
   final double width;
   final double height;
-  const ListViewItem({super.key, required this.width, required this.height});
+  const CustomBookingImageWidget({
+    super.key,
+    required this.width,
+    required this.height,
+  });
 
   @override
   Widget build(BuildContext context) {

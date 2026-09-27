@@ -21,7 +21,7 @@ class ListViewOfFeaturedItems extends StatelessWidget {
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
-              return ListViewItem(width: width, height: height);
+              return CustomBookingImageWidget(width: width, height: height);
             },
           ),
         ),

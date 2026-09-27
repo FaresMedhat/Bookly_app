@@ -1,8 +1,10 @@
 import 'package:bookly_app/core/styles.dart';
 import 'package:bookly_app/core/utils/assets_images.dart';
 import 'package:bookly_app/core/utils/colors.dart';
+import 'package:bookly_app/features/home_screen/presentation/view/widgets/book_deatails_widget.dart';
 import 'package:bookly_app/features/home_screen/presentation/view/widgets/custom_app_bar_details_screen.dart';
 import 'package:bookly_app/features/home_screen/presentation/view/widgets/listview_item.dart';
+import 'package:bookly_app/features/home_screen/presentation/view/widgets/rating_section_widget.dart';
 import 'package:flutter/material.dart';
 
 class DetailsViewScreen extends StatelessWidget {
@@ -20,43 +22,9 @@ class DetailsViewScreen extends StatelessWidget {
           children: [
             SafeArea(child: CustomAppBarDetailsScreen()),
 
-            ListViewItem(width: 1.3 * width, height: 1.3 * height),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 0.7 * width,
-                    child: Center(
-                      child: Text(
-                        "Harry Potter and the Goblet of Fire",
-                        style: Styles.textStyle30,
-                        maxLines: 2,
-                      ),
-                    ),
-                  ),
-
-                  Text("J.K. Rowling", style: Styles.textStyle20),
-                  SizedBox(height: 0.01 * height),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("19.9 €", style: Styles.textStyle14),
-                      SizedBox(width: 0.1 * width),
-                      SizedBox(
-                        width: 0.05 * width,
-                        height: 0.02 * height,
-                        child: Image.asset(AssetsImages.star, fit: BoxFit.fill),
-                      ),
-                      Text("4.8", style: Styles.textStyle14),
-                      SizedBox(width: 0.02 * width),
-                      Text("(2992)", style: Styles.textStyle14),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+            CustomBookingImageWidget(width: 1.3 * width, height: 1.3 * height),
+            BookDetailsSection(width: width, height: height),
+            RatingSection(width: width, height: height),
           ],
         ),
       ),
