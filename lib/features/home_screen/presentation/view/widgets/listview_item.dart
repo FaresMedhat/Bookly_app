@@ -21,7 +21,7 @@ class CustomBookingImageWidget extends StatelessWidget {
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: width * 10),
-        margin: EdgeInsets.all(0.1 * width),
+        margin: EdgeInsets.all(0.01 * width),
         width: 0.38 * width,
         height: 0.3 * height,
         decoration: BoxDecoration(

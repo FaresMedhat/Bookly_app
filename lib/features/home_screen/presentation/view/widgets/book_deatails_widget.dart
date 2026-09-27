@@ -17,10 +17,13 @@ class BookDetailsSection extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
             width: 0.7 * width,
-            child: Center(
+
+            child: Align(
+              alignment: AlignmentGeometry.center,
               child: Text(
                 "Harry Potter and the Goblet of Fire",
                 style: Styles.textStyle30,
