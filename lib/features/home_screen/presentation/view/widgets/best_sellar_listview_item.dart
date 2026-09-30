@@ -5,12 +5,8 @@ import 'package:bookly_app/core/utils/routers.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class BestSellarListViewItem extends StatelessWidget {
-  const BestSellarListViewItem({
-    super.key,
-    required this.width,
-    required this.height,
-  });
+class ListViewItem extends StatelessWidget {
+  const ListViewItem({super.key, required this.width, required this.height});
 
   final double width;
   final double height;
