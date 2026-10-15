@@ -3,6 +3,9 @@ import 'package:bookly_app/features/home_screen/data/model/book_model.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class HomeReposiory {
-  Future<Either<Failure, BookModel>> getBestSellarBooks();
+  Future<Either<Failure, List<BookModel>>> getBooks(
+    String query,
+    String sortOption,
+  );
   Future<Either<Failure, BookModel>> getFeaturedBooks();
 }

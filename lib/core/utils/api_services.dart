@@ -9,7 +9,7 @@ class ApiService {
     _dio.options.receiveTimeout = const Duration(seconds: 10);
   }
 
-  Future<Map<String, dynamic>> getNewestBooks({
+  Future<Map<String, dynamic>> getBooks({
     required String endPoints,
     Map<String, dynamic>? queryParameters,
   }) async {
