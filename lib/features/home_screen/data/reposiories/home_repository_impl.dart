@@ -9,19 +9,18 @@ class HomeRepositoryImpl implements HomeReposiory {
   final ApiService apiService;
 
   HomeRepositoryImpl({required this.apiService});
+
   @override
-  Future<Either<Failure, List<BookModel>>> getBooks(
-    String query,
-    String sortOption,
-  ) async {
+  Future<Either<Failure, List<BookModel>>> getFeaturedBooks() async {
     try {
       var response = await apiService.getBooks(
-        endPoints: "search.json?",
+        endPoints: "search.json",
         queryParameters: {
-          "q": query.isEmpty ? "*" : query,
-          if (sortOption.isNotEmpty) "sort": sortOption,
+          "q": "*", // علامة النجمة تعني جلب كل الكتب من كافة التصنيفات
+          "sort": "editions", // ترتيب حسب الأكثر شعبية وطباعة
         },
       );
+
       final List<BookModel> books = [];
       for (var book in response['docs']) {
         books.add(BookModel.fromJson(book));
@@ -36,16 +35,18 @@ class HomeRepositoryImpl implements HomeReposiory {
   }
 
   @override
-  Future<Either<Failure, List<BookModel>>> getFeaturedBooks() async {
+  Future<Either<Failure, List<BookModel>>> getNewestBooks(
+    String query,
+    String sortOption,
+  ) async {
     try {
       var response = await apiService.getBooks(
-        endPoints: "search.json",
+        endPoints: "search.json?",
         queryParameters: {
-          "q": "*", // علامة النجمة تعني جلب كل الكتب من كافة التصنيفات
-          "sort": "editions", // ترتيب حسب الأكثر شعبية وطباعة
+          "q": query.isEmpty ? "*" : query,
+          if (sortOption.isNotEmpty) "sort": sortOption,
         },
       );
-
       final List<BookModel> books = [];
       for (var book in response['docs']) {
         books.add(BookModel.fromJson(book));
