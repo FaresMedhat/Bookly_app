@@ -7,5 +7,5 @@ abstract class HomeReposiory {
     String query,
     String sortOption,
   );
-  Future<Either<Failure, BookModel>> getFeaturedBooks();
+  Future<Either<Failure, List<BookModel>>> getFeaturedBooks();
 }

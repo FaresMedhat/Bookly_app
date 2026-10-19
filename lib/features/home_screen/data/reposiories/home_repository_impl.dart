@@ -18,7 +18,7 @@ class HomeRepositoryImpl implements HomeReposiory {
       var response = await apiService.getBooks(
         endPoints: "search.json?",
         queryParameters: {
-          "q": query,
+          "q": query.isEmpty ? "*" : query,
           if (sortOption.isNotEmpty) "sort": sortOption,
         },
       );
@@ -36,7 +36,26 @@ class HomeRepositoryImpl implements HomeReposiory {
   }
 
   @override
-  Future<Either<Failure, BookModel>> getFeaturedBooks() {
-    throw UnimplementedError();
+  Future<Either<Failure, List<BookModel>>> getFeaturedBooks() async {
+    try {
+      var response = await apiService.getBooks(
+        endPoints: "search.json",
+        queryParameters: {
+          "q": "*", // علامة النجمة تعني جلب كل الكتب من كافة التصنيفات
+          "sort": "editions", // ترتيب حسب الأكثر شعبية وطباعة
+        },
+      );
+
+      final List<BookModel> books = [];
+      for (var book in response['docs']) {
+        books.add(BookModel.fromJson(book));
+      }
+      return Right(books);
+    } on Exception catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioError(e));
+      }
+      return Left(ServerFailure(errorMessage: e.toString()));
+    }
   }
 }
