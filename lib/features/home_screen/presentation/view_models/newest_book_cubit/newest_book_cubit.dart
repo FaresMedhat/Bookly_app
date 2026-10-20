@@ -7,7 +7,7 @@ import 'package:meta/meta.dart';
 part 'newest_book_cubit_state.dart';
 
 class NewestBookCubit extends Cubit<NewestBookCubitState> {
-  NewestBookCubit({required this.homeRepo}) : super(NewestBookCubitInitial());
+  NewestBookCubit(this.homeRepo) : super(NewestBookCubitInitial());
   final HomeReposiory homeRepo;
 
   Future<void> fetchNewestBooks(String? query, String? sortOption) async {
