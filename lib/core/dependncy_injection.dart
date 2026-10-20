@@ -1,0 +1,11 @@
+import 'package:bookly_app/core/utils/api_services.dart';
+import 'package:bookly_app/features/home_screen/data/reposiories/home_repository_impl.dart';
+import 'package:get_it/get_it.dart';
+
+final getIt = GetIt.instance;
+void setup() {
+  getIt.registerSingleton<ApiService>(ApiService());
+  getIt.registerSingleton<HomeRepositoryImpl>(
+    HomeRepositoryImpl(apiService: getIt.get<ApiService>()),
+  );
+}
