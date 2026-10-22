@@ -1,5 +1,5 @@
 import 'package:bookly_app/core/errors_and_exeption/failure.dart';
-import 'package:bookly_app/core/utils/api_services.dart';
+import 'package:bookly_app/core/utils/services/api_services.dart';
 import 'package:bookly_app/features/home_screen/data/model/book_model.dart';
 import 'package:bookly_app/features/home_screen/data/reposiories/home_reposiory.dart';
 import 'package:dartz/dartz.dart';

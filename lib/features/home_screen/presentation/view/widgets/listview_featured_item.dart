@@ -1,8 +1,12 @@
+import 'package:bookly_app/core/utils/widgets/custom_failure_widget.dart';
+import 'package:bookly_app/core/utils/widgets/custom_loading_widget.dart';
 import 'package:bookly_app/features/home_screen/presentation/view/widgets/listview_item.dart';
+import 'package:bookly_app/features/home_screen/presentation/view_models/newest_book_cubit/newest_book_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ListViewOfFeaturedItems extends StatelessWidget {
-  const ListViewOfFeaturedItems({
+class ListViewOfNewestItems extends StatelessWidget {
+  const ListViewOfNewestItems({
     super.key,
     required this.height,
     required this.width,
@@ -13,19 +17,45 @@ class ListViewOfFeaturedItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Padding(
-        padding: const EdgeInsets.only(left: 8, right: 8, bottom: 15),
-        child: SizedBox(
-          height: 0.3 * height,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              return CustomBookingImageWidget(width: width, height: height);
-            },
-          ),
-        ),
-      ),
+    return BlocBuilder<NewestBookCubit, NewestBookCubitState>(
+      builder: (context, state) {
+        if (state is NewestBookCubitSuccessState) {
+          return Container(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8, bottom: 15),
+              child: SizedBox(
+                height: 0.3 * height,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: state.books.length,
+                  itemBuilder: (context, index) {
+                    var coverId = state.books[index].coverId;
+                    if (coverId != null) {
+                      return CustomBookingImageWidget(
+                        imgUrl:
+                            'https://covers.openlibrary.org/b/id/$coverId-L.jpg',
+                        width: width,
+                        height: height,
+                      );
+                    } else {
+                      return CustomBookingImageWidget(
+                        imgUrl:
+                            'https://via.placeholder.com/150x200.png?text=No+Cover',
+                        width: width,
+                        height: height,
+                      );
+                    }
+                  },
+                ),
+              ),
+            ),
+          );
+        } else if (state is NewestBookCubitFailureState) {
+          return CustomFailureWidget();
+        } else {
+          return CustomLoadingWidget();
+        }
+      },
     );
   }
 }

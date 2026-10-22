@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 CustomAppBar(),
 
-                ListViewOfFeaturedItems(height: height, width: width),
+                ListViewOfNewestItems(height: height, width: width),
                 Text("  Best Sellar", style: Styles.textStyle20),
                 SizedBox(height: 0.01 * height),
               ],

@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  setup();
   runApp(const BooklyApp());
 }
 
@@ -23,7 +24,9 @@ class BooklyApp extends StatelessWidget {
               FeaturedBooksCubit(getIt.get<HomeRepositoryImpl>()),
         ),
         BlocProvider(
-          create: (context) => NewestBookCubit(getIt.get<HomeRepositoryImpl>()),
+          create: (context) =>
+              NewestBookCubit(getIt.get<HomeRepositoryImpl>())
+                ..fetchNewestBooks("sport", "new"),
         ),
       ],
       child: MaterialApp.router(
