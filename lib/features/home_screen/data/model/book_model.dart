@@ -1,52 +1,84 @@
 class BookModel {
+  final int id;
   final String title;
   final List<String> authors;
-  final int? publishYear;
-  final int? coverId;
-  final String ebookAccess;
-  final bool hasFullText;
-  final String? lendingIdentifier;
+  final List<String> summaries;
+  final List<String> subjects;
+  final List<String> bookshelves;
+  final List<String> languages;
+  final String coverImageUrl;
+  final String? readOnlineUrl;
+  final String? downloadEpubUrl;
+  final int downloadCount;
 
   BookModel({
+    required this.id,
     required this.title,
     required this.authors,
-    this.publishYear,
-    this.coverId,
-    required this.ebookAccess,
-    required this.hasFullText,
-    this.lendingIdentifier,
+    required this.summaries,
+    required this.subjects,
+    required this.bookshelves,
+    required this.languages,
+    required this.coverImageUrl,
+    this.readOnlineUrl,
+    this.downloadEpubUrl,
+    required this.downloadCount,
   });
 
   factory BookModel.fromJson(Map<String, dynamic> json) {
+    // 1. استخراج الروابط (Formats) بأمان
+    final formats = json['formats'] as Map<String, dynamic>? ?? {};
+
+    // 2. استخراج أسماء المؤلفين
+    final List<dynamic> authorsList = json['authors'] ?? [];
+    final List<String> parsedAuthors = authorsList
+        .map((author) => author['name']?.toString() ?? 'Unknown Author')
+        .toList();
+
+    // 3. استخراج القوائم الإضافية (الملخصات، التصنيفات، اللغات) بأمان
+    final List<String> parsedSummaries =
+        (json['summaries'] as List<dynamic>?)
+            ?.map((e) => e.toString())
+            .toList() ??
+        [];
+
+    final List<String> parsedSubjects =
+        (json['subjects'] as List<dynamic>?)
+            ?.map((e) => e.toString())
+            .toList() ??
+        [];
+
+    final List<String> parsedBookshelves =
+        (json['bookshelves'] as List<dynamic>?)
+            ?.map((e) => e.toString())
+            .toList() ??
+        [];
+
+    final List<String> parsedLanguages =
+        (json['languages'] as List<dynamic>?)
+            ?.map((e) => e.toString())
+            .toList() ??
+        [];
+
     return BookModel(
+      id: json['id'] as int? ?? 0,
       title: json['title'] as String? ?? 'Unknown Title',
-      // The JSON provides authors as a list, we safely cast and map it
-      authors:
-          (json['author_name'] as List<dynamic>?)
-              ?.map((e) => e.toString())
-              .toList() ??
-          ['Unknown Author'],
-      publishYear: json['first_publish_year'] as int?,
-      coverId: json['cover_i'] as int?,
-      ebookAccess: json['ebook_access'] as String? ?? 'no_ebook',
-      hasFullText: json['has_fulltext'] as bool? ?? false,
-      lendingIdentifier: json['lending_identifier_s'] as String?,
+      authors: parsedAuthors.isNotEmpty ? parsedAuthors : ['Unknown Author'],
+      summaries: parsedSummaries,
+      subjects: parsedSubjects,
+      bookshelves: parsedBookshelves,
+      languages: parsedLanguages,
+
+      // 4. جلب رابط الصورة، وإذا لم يوجد نضع صورة بديلة
+      coverImageUrl:
+          formats['image/jpeg'] as String? ??
+          'https://via.placeholder.com/150x220.png?text=No+Cover',
+
+      // 5. جلب روابط القراءة والتحميل
+      readOnlineUrl: formats['text/html'] as String?,
+      downloadEpubUrl: formats['application/epub+zip'] as String?,
+
+      downloadCount: json['download_count'] as int? ?? 0,
     );
-  }
-
-  // Domain logic embedded in the model for the UI to consume directly
-  String get coverImageUrl {
-    if (coverId != null) {
-      return 'https://covers.openlibrary.org/b/id/$coverId-L.jpg';
-    }
-    return 'https://via.placeholder.com/150x200.png?text=No+Cover';
-  }
-
-  String? get readBookUrl {
-    // Only borrowable books with an identifier get a reading link
-    if (ebookAccess == 'borrowable' && lendingIdentifier != null) {
-      return 'https://archive.org/details/$lendingIdentifier/mode/2up';
-    }
-    return null;
   }
 }

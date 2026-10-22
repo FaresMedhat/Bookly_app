@@ -14,15 +14,15 @@ class HomeRepositoryImpl implements HomeReposiory {
   Future<Either<Failure, List<BookModel>>> getFeaturedBooks() async {
     try {
       var response = await apiService.getBooks(
-        endPoints: "search.json",
+        endPoints: "books/",
         queryParameters: {
-          "q": "*", // علامة النجمة تعني جلب كل الكتب من كافة التصنيفات
-          "sort": "editions", // ترتيب حسب الأكثر شعبية وطباعة
+          "search":
+              "programming", // علامة النجمة تعني جلب كل الكتب من كافة التصنيفات
         },
       );
 
       final List<BookModel> books = [];
-      for (var book in response['docs']) {
+      for (var book in response['results']) {
         books.add(BookModel.fromJson(book));
       }
       return Right(books);
@@ -41,14 +41,14 @@ class HomeRepositoryImpl implements HomeReposiory {
   ) async {
     try {
       var response = await apiService.getBooks(
-        endPoints: "search.json?",
+        endPoints: "books/",
         queryParameters: {
-          "q": query.isEmpty ? "*" : query,
+          "search": query.isEmpty ? "fiction" : query,
           if (sortOption.isNotEmpty) "sort": sortOption,
         },
       );
       final List<BookModel> books = [];
-      for (var book in response['docs']) {
+      for (var book in response['results']) {
         books.add(BookModel.fromJson(book));
       }
       return Right(books);

@@ -21,14 +21,32 @@ class CustomBookingImageWidget extends StatelessWidget {
         GoRouter.of(context).push(Routers.detailsScreen);
       },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: width * 10),
+        padding: EdgeInsets.symmetric(horizontal: width * 0.01),
         margin: EdgeInsets.all(0.01 * width),
         width: 0.38 * width,
         height: 0.3 * height,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
           color: ColorsOFApp.whiteColor,
-          image: DecorationImage(image: NetworkImage(imgUrl), fit: BoxFit.fill),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(25),
+          child: Image.network(
+            imgUrl,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              return Container(
+                color: Colors.grey[200],
+                child: const Center(
+                  child: Icon(Icons.broken_image, size: 40, color: Colors.grey),
+                ),
+              );
+            },
+            loadingBuilder: (context, child, loadingProgress) {
+              if (loadingProgress == null) return child;
+              return const Center(child: CircularProgressIndicator());
+            },
+          ),
         ),
       ),
     );

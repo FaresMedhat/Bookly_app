@@ -13,23 +13,19 @@ class NewestBookCubit extends Cubit<NewestBookCubitState> {
   Future<void> fetchNewestBooks(String? query, String? sortOption) async {
     emit(NewestBookCubitLoadingState());
     var newestBooks = await homeRepo.getNewestBooks(
-      query ?? "subject:fantasy",
-      sortOption ?? "newest",
+      query ?? "fiction",
+      sortOption ?? "",
     );
     newestBooks.fold(
       (failure) {
-        print("NewestBookCubitFailureState: ${failure.errorMessage}");
+        // 🔴 طباعة الخطأ إذا فشل الاتصال بالإنترنت أو السيرفر
+        print("====== ERROR API: ${failure.errorMessage} ======");
         emit(NewestBookCubitFailureState(errorMessage: failure.errorMessage));
       },
       (books) {
-        final List<BookModel> booksWithCovers = [];
-        for (var book in books) {
-          if (book.coverId == null) {
-            continue;
-          }
-          booksWithCovers.add(book);
-        }
-        emit(NewestBookCubitSuccessState(books: booksWithCovers));
+        // 🟢 طباعة عدد الكتب إذا نجح الطلب
+        print("====== SUCCESS: Found ${books.length} books ======");
+        emit(NewestBookCubitSuccessState(books: books));
       },
     );
   }

@@ -43,6 +43,7 @@ dependencies:
   bloc: ^9.2.1
   get_it: ^9.3.0
   flutter_bloc: ^9.1.1
+  cached_network_image: ^4.0.5
 
 dev_dependencies:
   flutter_test:

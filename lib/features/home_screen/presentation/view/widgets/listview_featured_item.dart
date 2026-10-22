@@ -29,22 +29,13 @@ class ListViewOfNewestItems extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemCount: state.books.length,
                   itemBuilder: (context, index) {
-                    var coverId = state.books[index].coverId;
-                    if (coverId != null) {
-                      return CustomBookingImageWidget(
-                        imgUrl:
-                            'https://covers.openlibrary.org/b/id/$coverId-L.jpg',
-                        width: width,
-                        height: height,
-                      );
-                    } else {
-                      return CustomBookingImageWidget(
-                        imgUrl:
-                            'https://via.placeholder.com/150x200.png?text=No+Cover',
-                        width: width,
-                        height: height,
-                      );
-                    }
+                    var coverId = state.books[index].coverImageUrl;
+                    print("IMAGE URL IS: $coverId");
+                    return CustomBookingImageWidget(
+                      imgUrl: coverId,
+                      width: width,
+                      height: height,
+                    );
                   },
                 ),
               ),
