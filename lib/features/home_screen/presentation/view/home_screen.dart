@@ -21,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: ColorsOFApp.primaryColor,
       body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
         slivers: [
           SliverToBoxAdapter(
             child: Column(
@@ -34,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-          SliverFillRemaining(
+          SliverToBoxAdapter(
             child: ListViewOfBestSellarItem(width: width, height: height),
           ),
         ],

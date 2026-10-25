@@ -23,17 +23,17 @@ class CustomBookingImageWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: width * 0.01),
         margin: EdgeInsets.all(0.01 * width),
-        width: 0.38 * width,
+        width: 0.4 * width,
         height: 0.3 * height,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(15),
           color: ColorsOFApp.whiteColor,
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(15),
           child: Image.network(
             imgUrl,
-            fit: BoxFit.cover,
+            fit: BoxFit.fill,
             errorBuilder: (context, error, stackTrace) {
               return Container(
                 color: Colors.grey[200],

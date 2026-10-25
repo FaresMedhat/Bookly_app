@@ -30,7 +30,7 @@ class ListViewOfNewestItems extends StatelessWidget {
                   itemCount: state.books.length,
                   itemBuilder: (context, index) {
                     var coverId = state.books[index].coverImageUrl;
-                    print("IMAGE URL IS: $coverId");
+
                     return CustomBookingImageWidget(
                       imgUrl: coverId,
                       width: width,
@@ -42,7 +42,7 @@ class ListViewOfNewestItems extends StatelessWidget {
             ),
           );
         } else if (state is NewestBookCubitFailureState) {
-          return CustomFailureWidget();
+          return CustomFailureWidget(errorMessege: state.errorMessage);
         } else {
           return CustomLoadingWidget();
         }

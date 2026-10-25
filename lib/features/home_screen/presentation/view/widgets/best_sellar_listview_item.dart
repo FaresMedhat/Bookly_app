@@ -2,14 +2,22 @@ import 'package:bookly_app/core/styles.dart';
 import 'package:bookly_app/core/utils/assets_images.dart';
 import 'package:bookly_app/core/utils/colors.dart';
 import 'package:bookly_app/core/utils/routers.dart';
+import 'package:bookly_app/features/home_screen/data/model/book_model.dart';
+import 'package:bookly_app/features/home_screen/presentation/view/widgets/listview_item.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class ListViewItem extends StatelessWidget {
-  const ListViewItem({super.key, required this.width, required this.height});
+  const ListViewItem({
+    super.key,
+    required this.width1,
+    required this.height1,
+    required this.book,
+  });
 
-  final double width;
-  final double height;
+  final double width1;
+  final double height1;
+  final BookModel book;
 
   @override
   Widget build(BuildContext context) {
@@ -24,50 +32,55 @@ class ListViewItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 5),
 
-                width: 0.27 * width,
-                height: 0.2 * height,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25),
-                  color: ColorsOFApp.whiteColor,
-                  image: DecorationImage(
-                    image: AssetImage(AssetsImages.book1),
-                    fit: BoxFit.fill,
-                  ),
+                width: 0.3 * width1,
+                height: 0.22 * height1,
+                child: CustomBookingImageWidget(
+                  width: 0.4 * width1,
+                  height: 0.3 * height1,
+                  imgUrl: book.coverImageUrl,
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: 0.5 * width,
+                      width: 0.5 * width1,
                       child: Text(
-                        "Harry Potter and the Goblet of Fire",
+                        book.title,
                         style: Styles.textStyle20,
                         maxLines: 2,
                       ),
                     ),
 
-                    Text("J.K. Rowling", style: Styles.textStyle14),
-                    SizedBox(height: 0.01 * height),
+                    Text(
+                      book.authors[0],
+                      style: Styles.textStyle14,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    SizedBox(height: 0.01 * height1),
                     Row(
                       children: [
-                        Text("19.9 €", style: Styles.textStyle14),
-                        SizedBox(width: 0.1 * width),
+                        Text("Free", style: Styles.textStyle14),
+                        SizedBox(width: 0.1 * width1),
                         SizedBox(
-                          width: 0.05 * width,
-                          height: 0.02 * height,
+                          width: 0.05 * width1,
+                          height: 0.02 * height1,
                           child: Image.asset(
                             AssetsImages.star,
                             fit: BoxFit.fill,
                           ),
                         ),
                         Text("4.8", style: Styles.textStyle14),
-                        SizedBox(width: 0.02 * width),
-                        Text("(2992)", style: Styles.textStyle14),
+                        SizedBox(width: 0.02 * width1),
+                        Text(
+                          "(${book.downloadCount})",
+                          style: Styles.textStyle14,
+                        ),
                       ],
                     ),
                   ],

@@ -15,10 +15,7 @@ class HomeRepositoryImpl implements HomeReposiory {
     try {
       var response = await apiService.getBooks(
         endPoints: "books/",
-        queryParameters: {
-          "search":
-              "programming", // علامة النجمة تعني جلب كل الكتب من كافة التصنيفات
-        },
+        queryParameters: {"search": "fantasy"},
       );
 
       final List<BookModel> books = [];
@@ -43,7 +40,7 @@ class HomeRepositoryImpl implements HomeReposiory {
       var response = await apiService.getBooks(
         endPoints: "books/",
         queryParameters: {
-          "search": query.isEmpty ? "fiction" : query,
+          "search": query.isEmpty ? "" : query,
           if (sortOption.isNotEmpty) "sort": sortOption,
         },
       );

@@ -20,7 +20,10 @@ class ListViewOfSearchResult extends StatelessWidget {
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.all(10),
-          child: ListViewItem(width: width, height: height),
+          child: // ListViewItem(width: width, height: height),
+          Text(
+            "Data",
+          ),
         );
       },
     );

@@ -10,10 +10,10 @@ class NewestBookCubit extends Cubit<NewestBookCubitState> {
   NewestBookCubit(this.homeRepo) : super(NewestBookCubitInitial());
   final HomeReposiory homeRepo;
 
-  Future<void> fetchNewestBooks(String? query, String? sortOption) async {
+  Future<void> fetchNewestBooks({String? query, String? sortOption}) async {
     emit(NewestBookCubitLoadingState());
     var newestBooks = await homeRepo.getNewestBooks(
-      query ?? "fiction",
+      query ?? "science",
       sortOption ?? "",
     );
     newestBooks.fold(
