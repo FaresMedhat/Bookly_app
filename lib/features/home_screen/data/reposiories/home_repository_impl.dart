@@ -14,12 +14,12 @@ class HomeRepositoryImpl implements HomeReposiory {
   Future<Either<Failure, List<BookModel>>> getFeaturedBooks() async {
     try {
       var response = await apiService.getBooks(
-        endPoints: "books/",
-        queryParameters: {"search": "computer"},
+        endPoints: "volumes",
+        queryParameters: {"q": "Fantasy", "maxResults": "30"},
       );
 
       final List<BookModel> books = [];
-      for (var book in response['results']) {
+      for (var book in response['items']) {
         books.add(BookModel.fromJson(book));
       }
       return Right(books);
@@ -32,20 +32,17 @@ class HomeRepositoryImpl implements HomeReposiory {
   }
 
   @override
-  Future<Either<Failure, List<BookModel>>> getNewestBooks(
-    String query,
-    String sortOption,
-  ) async {
+  Future<Either<Failure, List<BookModel>>> getNewestBooks(String query) async {
     try {
       var response = await apiService.getBooks(
-        endPoints: "books/",
+        endPoints: "volumes",
         queryParameters: {
-          "search": query.isEmpty ? "" : query,
-          if (sortOption.isNotEmpty) "sort": sortOption,
+          "q": query.isEmpty ? "programming" : query,
+          "maxResults": "30",
         },
       );
       final List<BookModel> books = [];
-      for (var book in response['results']) {
+      for (var book in response['items']) {
         books.add(BookModel.fromJson(book));
       }
       return Right(books);

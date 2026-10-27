@@ -2,56 +2,70 @@ class BookModel {
   final String id;
   final String title;
   final List<String> authors;
-  final String coverImageUrl;
+  final String thumbnail;
   final num? averageRating;
   final int? ratingsCount;
-  final String? description;
-  // 👈 1. أضفنا المتغير الجديد الخاص برابط الكتاب
+  final String description;
   final String bookUrl;
+  final bool isPdfAvailable;
 
   BookModel({
     required this.id,
     required this.title,
     required this.authors,
-    required this.coverImageUrl,
+    required this.thumbnail,
     this.averageRating,
     this.ratingsCount,
-    this.description,
-    // 👈 2. أضفناه في الـ Constructor
+    required this.description,
     required this.bookUrl,
+    required this.isPdfAvailable,
   });
 
   factory BookModel.fromJson(Map<String, dynamic> json) {
-    final volumeInfo = json['volumeInfo'] ?? {};
-    final imageLinks = volumeInfo['imageLinks'] ?? {};
-    final searchInfo = json['searchInfo'] ?? {};
-    // 👈 3. جلب كائن الـ accessInfo
-    final accessInfo = json['accessInfo'] ?? {};
+    // 1. الدخول الآمن جداً للكائنات الفرعية
+    final volumeInfo = json['volumeInfo'] as Map<String, dynamic>? ?? {};
+    final imageLinks = volumeInfo['imageLinks'] as Map<String, dynamic>? ?? {};
+    final searchInfo = json['searchInfo'] as Map<String, dynamic>? ?? {};
+    final accessInfo = json['accessInfo'] as Map<String, dynamic>? ?? {};
+    final pdfInfo = accessInfo['pdf'] as Map<String, dynamic>? ?? {};
 
-    String thumbnail = imageLinks['thumbnail'] ?? '';
-    thumbnail = thumbnail.replaceAll('http:', 'https:');
-
-    List<String> parsedAuthors = [];
-    if (volumeInfo['authors'] != null) {
-      parsedAuthors = List<String>.from(volumeInfo['authors']);
-    } else {
-      parsedAuthors = ['Unknown Author'];
+    // 2. معالجة رابط الصورة
+    String thumbnail = '';
+    if (imageLinks['thumbnail'] != null) {
+      thumbnail = imageLinks['thumbnail'].toString().replaceAll(
+        'http:',
+        'https:',
+      );
     }
 
-    return BookModel(
-      id: json['id'] ?? '',
-      title: volumeInfo['title'] ?? 'No Title',
-      authors: parsedAuthors,
-      coverImageUrl: thumbnail,
-      averageRating: volumeInfo['averageRating'] ?? 0,
-      ratingsCount: volumeInfo['ratingsCount'] ?? 0,
-      description:
-          volumeInfo['description'] ??
-          searchInfo['textSnippet'] ??
-          'No Description',
+    // 3. معالجة قائمة المؤلفين
+    List<String> parsedAuthors = ['Unknown Author'];
+    if (volumeInfo['authors'] != null && volumeInfo['authors'] is List) {
+      parsedAuthors = List<String>.from(volumeInfo['authors']);
+    }
 
-      // 👈 4. جلب رابط الكتاب (نفضل رابط المعاينة previewLink، وإن لم يوجد نأخذ رابط القراءة webReaderLink)
-      bookUrl: volumeInfo['previewLink'] ?? accessInfo['webReaderLink'] ?? '',
+    // 4. معالجة الوصف
+    String safeDescription = 'No Description';
+    if (volumeInfo['description'] != null) {
+      safeDescription = volumeInfo['description'].toString();
+    } else if (searchInfo['textSnippet'] != null) {
+      safeDescription = searchInfo['textSnippet'].toString();
+    }
+
+    // 5. بناء الكائن النهائي بأمان تام
+    return BookModel(
+      id: json['id']?.toString() ?? '',
+      title: volumeInfo['title']?.toString() ?? 'No Title',
+      authors: parsedAuthors,
+      thumbnail: thumbnail,
+      averageRating: volumeInfo['averageRating'] as num? ?? 0,
+      ratingsCount: volumeInfo['ratingsCount'] as int? ?? 0,
+      description: safeDescription,
+      bookUrl:
+          volumeInfo['previewLink']?.toString() ??
+          accessInfo['webReaderLink']?.toString() ??
+          '',
+      isPdfAvailable: pdfInfo['isAvailable'] as bool? ?? false,
     );
   }
 }

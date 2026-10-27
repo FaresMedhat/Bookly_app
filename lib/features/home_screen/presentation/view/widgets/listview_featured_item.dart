@@ -29,7 +29,7 @@ class ListViewOfNewestItems extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemCount: state.books.length,
                   itemBuilder: (context, index) {
-                    var coverId = state.books[index].coverImageUrl;
+                    var coverId = state.books[index].thumbnail;
 
                     return CustomBookingImageWidget(
                       imgUrl: coverId,

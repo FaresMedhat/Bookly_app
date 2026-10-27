@@ -39,7 +39,7 @@ class ListViewItem extends StatelessWidget {
                 child: CustomBookingImageWidget(
                   width: 0.4 * width1,
                   height: 0.3 * height1,
-                  imgUrl: book.coverImageUrl,
+                  imgUrl: book.thumbnail,
                 ),
               ),
               Padding(
@@ -59,7 +59,7 @@ class ListViewItem extends StatelessWidget {
                     SizedBox(
                       width: 0.5 * width1,
                       child: Text(
-                        book.authors[0],
+                        book.authors.first,
                         style: Styles.textStyle14,
                         maxLines: 2,
                       ),
