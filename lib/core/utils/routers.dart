@@ -1,3 +1,4 @@
+import 'package:bookly_app/features/home_screen/data/model/book_model.dart';
 import 'package:bookly_app/features/home_screen/presentation/view/widgets/details_view_screen.dart';
 import 'package:bookly_app/features/home_screen/presentation/view/home_screen.dart';
 import 'package:bookly_app/features/search_screen/presentation/view/search_screen.dart';
@@ -14,7 +15,8 @@ abstract class Routers {
       GoRoute(path: homeScreen, builder: (context, state) => HomeScreen()),
       GoRoute(
         path: detailsScreen,
-        builder: (context, state) => DetailsViewScreen(),
+        builder: (context, state) =>
+            DetailsViewScreen(book: state.extra as BookModel),
       ),
       GoRoute(path: searchScreen, builder: (context, state) => SearchScreen()),
     ],

@@ -23,7 +23,7 @@ class ListViewItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        GoRouter.of(context).push(Routers.detailsScreen);
+        GoRouter.of(context).push(Routers.detailsScreen, extra: book);
       },
       child: Padding(
         padding: const EdgeInsets.all(10),

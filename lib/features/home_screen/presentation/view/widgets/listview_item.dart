@@ -1,7 +1,6 @@
 import 'package:bookly_app/core/utils/colors.dart';
-import 'package:bookly_app/core/utils/routers.dart';
+
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class CustomBookingImageWidget extends StatelessWidget {
   final double width;
@@ -17,9 +16,6 @@ class CustomBookingImageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        GoRouter.of(context).push(Routers.detailsScreen);
-      },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: width * 0.01),
         margin: EdgeInsets.all(0.01 * width),

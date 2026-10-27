@@ -1,4 +1,6 @@
 import 'package:bookly_app/core/styles.dart';
+import 'package:bookly_app/features/home_screen/data/model/book_model.dart';
+
 import 'package:flutter/material.dart';
 
 class BookDetailsSection extends StatelessWidget {
@@ -6,10 +8,12 @@ class BookDetailsSection extends StatelessWidget {
     super.key,
     required this.width,
     required this.height,
+    required this.book,
   });
 
   final double width;
   final double height;
+  final BookModel book;
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +28,11 @@ class BookDetailsSection extends StatelessWidget {
 
             child: Align(
               alignment: AlignmentGeometry.center,
-              child: Text(
-                "Harry Potter and the Goblet of Fire",
-                style: Styles.textStyle30,
-                maxLines: 2,
-              ),
+              child: Text(book.title, style: Styles.textStyle30, maxLines: 2),
             ),
           ),
 
-          Text("J.K. Rowling", style: Styles.textStyle20),
+          Text(book.authors.first, style: Styles.textStyle20),
           SizedBox(height: 0.01 * height),
         ],
       ),
