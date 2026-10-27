@@ -1,6 +1,6 @@
 import 'package:bookly_app/core/styles.dart';
 import 'package:bookly_app/core/utils/assets_images.dart';
-import 'package:bookly_app/core/utils/colors.dart';
+
 import 'package:bookly_app/core/utils/routers.dart';
 import 'package:bookly_app/features/home_screen/data/model/book_model.dart';
 import 'package:bookly_app/features/home_screen/presentation/view/widgets/listview_item.dart';
@@ -56,12 +56,15 @@ class ListViewItem extends StatelessWidget {
                       ),
                     ),
 
-                    Text(
-                      book.authors[0],
-                      style: Styles.textStyle14,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                    SizedBox(
+                      width: 0.5 * width1,
+                      child: Text(
+                        book.authors[0],
+                        style: Styles.textStyle14,
+                        maxLines: 2,
+                      ),
                     ),
+
                     SizedBox(height: 0.01 * height1),
                     Row(
                       children: [

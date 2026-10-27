@@ -5,8 +5,8 @@ class ApiService {
   String _baseUrl = "https://gutendex.com/";
   ApiService() : _dio = Dio() {
     _dio.options.baseUrl = _baseUrl;
-    _dio.options.connectTimeout = const Duration(seconds: 30);
-    _dio.options.receiveTimeout = const Duration(seconds: 30);
+    _dio.options.connectTimeout = const Duration(seconds: 40);
+    _dio.options.receiveTimeout = const Duration(seconds: 40);
   }
 
   Future<Map<String, dynamic>> getBooks({
