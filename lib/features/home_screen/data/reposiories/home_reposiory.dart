@@ -5,4 +5,5 @@ import 'package:dartz/dartz.dart';
 abstract class HomeReposiory {
   Future<Either<Failure, List<BookModel>>> getNewestBooks(String query);
   Future<Either<Failure, List<BookModel>>> getFeaturedBooks();
+  Future<Either<Failure, List<BookModel>>> getSimillerBooks(String category);
 }

@@ -53,4 +53,30 @@ class HomeRepositoryImpl implements HomeReposiory {
       return Left(ServerFailure(errorMessage: e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, List<BookModel>>> getSimillerBooks(
+    String category,
+  ) async {
+    try {
+      var response = await apiService.getBooks(
+        endPoints: "volumes",
+        queryParameters: {
+          "q": category.isEmpty ? "programming" : category,
+          "maxResults": "30",
+          "orderBy": "relevance",
+        },
+      );
+      final List<BookModel> books = [];
+      for (var book in response['items']) {
+        books.add(BookModel.fromJson(book));
+      }
+      return Right(books);
+    } on Exception catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioError(e));
+      }
+      return Left(ServerFailure(errorMessage: e.toString()));
+    }
+  }
 }

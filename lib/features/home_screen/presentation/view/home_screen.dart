@@ -2,7 +2,7 @@ import 'package:bookly_app/core/styles.dart';
 import 'package:bookly_app/core/utils/colors.dart';
 
 import 'package:bookly_app/features/home_screen/presentation/view/widgets/custom_app_bar.dart';
-import 'package:bookly_app/features/home_screen/presentation/view/widgets/listview_featured_item.dart';
+import 'package:bookly_app/features/home_screen/presentation/view/widgets/listview_newest_item.dart';
 import 'package:bookly_app/features/home_screen/presentation/view/widgets/listview_of_best_sellar_items.dart';
 import 'package:flutter/material.dart';
 
