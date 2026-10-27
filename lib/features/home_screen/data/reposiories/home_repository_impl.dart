@@ -15,7 +15,7 @@ class HomeRepositoryImpl implements HomeReposiory {
     try {
       var response = await apiService.getBooks(
         endPoints: "books/",
-        queryParameters: {"search": "fantasy"},
+        queryParameters: {"search": "computer"},
       );
 
       final List<BookModel> books = [];

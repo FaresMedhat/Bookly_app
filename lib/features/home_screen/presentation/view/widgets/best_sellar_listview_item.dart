@@ -81,7 +81,7 @@ class ListViewItem extends StatelessWidget {
                         Text("4.8", style: Styles.textStyle14),
                         SizedBox(width: 0.02 * width1),
                         Text(
-                          "(${book.downloadCount})",
+                          "(${book.ratingsCount})",
                           style: Styles.textStyle14,
                         ),
                       ],
