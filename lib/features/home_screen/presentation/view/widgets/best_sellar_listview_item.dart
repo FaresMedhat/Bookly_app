@@ -78,10 +78,13 @@ class ListViewItem extends StatelessWidget {
                             fit: BoxFit.fill,
                           ),
                         ),
-                        Text("4.8", style: Styles.textStyle14),
+                        Text(
+                          "${book.averageRating}",
+                          style: Styles.textStyle14,
+                        ),
                         SizedBox(width: 0.02 * width1),
                         Text(
-                          "(${book.ratingsCount})",
+                          "(${book.ratingsCount}) ratings",
                           style: Styles.textStyle14,
                         ),
                       ],

@@ -1,3 +1,4 @@
+import 'package:bookly_app/core/utils/routers.dart';
 import 'package:bookly_app/core/utils/widgets/custom_failure_widget.dart';
 import 'package:bookly_app/core/utils/widgets/custom_loading_widget.dart';
 
@@ -7,6 +8,7 @@ import 'package:bookly_app/features/home_screen/presentation/view_models/simille
 import 'package:bookly_app/features/home_screen/presentation/view_models/similler_books_cubit/similler_books_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class ListViewOfSimilarBooks extends StatefulWidget {
   const ListViewOfSimilarBooks({
@@ -48,10 +50,18 @@ class _ListViewOfSimilarBooksState extends State<ListViewOfSimilarBooks> {
                   itemBuilder: (context, index) {
                     var coverId = state.books[index].thumbnail;
 
-                    return CustomBookingImageWidget(
-                      imgUrl: coverId,
-                      width: widget.width,
-                      height: widget.height,
+                    return GestureDetector(
+                      onTap: () {
+                        GoRouter.of(context).push(
+                          Routers.detailsScreen,
+                          extra: state.books[index],
+                        );
+                      },
+                      child: CustomBookingImageWidget(
+                        imgUrl: coverId,
+                        width: widget.width,
+                        height: widget.height,
+                      ),
                     );
                   },
                 ),

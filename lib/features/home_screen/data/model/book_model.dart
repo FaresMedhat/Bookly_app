@@ -9,6 +9,9 @@ class BookModel {
   final String description;
   final String bookUrl;
   final bool isPdfAvailable;
+  final String saleability;
+  final String downloadLink;
+  final String buyLink;
 
   BookModel({
     required this.id,
@@ -21,6 +24,9 @@ class BookModel {
     required this.description,
     required this.bookUrl,
     required this.isPdfAvailable,
+    required this.saleability,
+    required this.downloadLink,
+    required this.buyLink,
   });
 
   factory BookModel.fromJson(Map<String, dynamic> json) {
@@ -31,6 +37,9 @@ class BookModel {
     final searchInfo = json['searchInfo'] as Map<String, dynamic>? ?? {};
     final accessInfo = json['accessInfo'] as Map<String, dynamic>? ?? {};
     final pdfInfo = accessInfo['pdf'] as Map<String, dynamic>? ?? {};
+    final saleInfo = json['saleInfo'] as Map<String, dynamic>? ?? {};
+    buyLink:
+    saleInfo['buyLink']?.toString() ?? '';
 
     // 2. معالجة رابط الصورة
     String thumbnail = '';
@@ -58,6 +67,13 @@ class BookModel {
     } else if (searchInfo['textSnippet'] != null) {
       safeDescription = searchInfo['textSnippet'].toString();
     }
+    String bookUrl =
+        volumeInfo['previewLink']?.toString() ??
+        accessInfo['webReaderLink']?.toString() ??
+        '';
+
+    bool isPdfAvailable = pdfInfo['isAvailable'] as bool? ?? false;
+    String downloadLink = pdfInfo['downloadLink']?.toString() ?? '';
 
     // 5. بناء الكائن النهائي بأمان تام
     return BookModel(
@@ -69,11 +85,11 @@ class BookModel {
       averageRating: volumeInfo['averageRating'] as num? ?? 0,
       ratingsCount: volumeInfo['ratingsCount'] as int? ?? 0,
       description: safeDescription,
-      bookUrl:
-          volumeInfo['previewLink']?.toString() ??
-          accessInfo['webReaderLink']?.toString() ??
-          '',
-      isPdfAvailable: pdfInfo['isAvailable'] as bool? ?? false,
+      bookUrl: bookUrl,
+      isPdfAvailable: isPdfAvailable,
+      saleability: saleInfo['saleability']?.toString() ?? 'NOT_FOR_SALE',
+      downloadLink: downloadLink,
+      buyLink: saleInfo['buyLink']?.toString() ?? '',
     );
   }
 }

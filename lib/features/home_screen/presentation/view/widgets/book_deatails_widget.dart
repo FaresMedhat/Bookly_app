@@ -26,9 +26,10 @@ class BookDetailsSection extends StatelessWidget {
           SizedBox(
             width: 0.7 * width,
 
-            child: Align(
-              alignment: AlignmentGeometry.center,
-              child: Text(book.title, style: Styles.textStyle30, maxLines: 2),
+            child: Text(
+              book.title,
+              style: Styles.textStyle30,
+              textAlign: TextAlign.center,
             ),
           ),
 

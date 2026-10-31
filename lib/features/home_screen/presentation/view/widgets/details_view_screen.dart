@@ -45,7 +45,7 @@ class _DetailsViewScreenState extends State<DetailsViewScreen> {
               ),
               RatingSection(width: width, height: height, book: widget.book),
               SizedBox(height: 0.037 * height),
-              BooksButtonActions(height: height),
+              BooksButtonActions(height: height, book: widget.book),
               SizedBox(height: 0.02 * height),
               Align(
                 alignment: AlignmentGeometry.centerLeft,
