@@ -17,14 +17,12 @@ class NewestBookCubit extends Cubit<NewestBookCubitState> {
     );
     newestBooks.fold(
       (failure) {
-        // 🔴 طباعة الخطأ إذا فشل الاتصال بالإنترنت أو السيرفر
         print(
           "====== ERROR API in fetchNewestBooks: ${failure.errorMessage} ======",
         );
         emit(NewestBookCubitFailureState(errorMessage: failure.errorMessage));
       },
       (books) {
-        // 🟢 طباعة عدد الكتب إذا نجح الطلب
         print("====== SUCCESS: Found ${books.length} books ======");
         emit(NewestBookCubitSuccessState(books: books));
       },
