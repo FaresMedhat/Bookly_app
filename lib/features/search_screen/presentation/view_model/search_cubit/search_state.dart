@@ -13,8 +13,8 @@ final class SearchSuccessState extends SearchState {
   SearchSuccessState({required this.books});
 }
 
-final class SearchError extends SearchState {
+final class SearchErrorState extends SearchState {
   final String errorMessege;
 
-  SearchError({required this.errorMessege});
+  SearchErrorState({required this.errorMessege});
 }
